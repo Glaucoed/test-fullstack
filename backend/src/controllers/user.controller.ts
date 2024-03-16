@@ -21,5 +21,14 @@ export const userController = {
       res.send({ error: "Error creating user" });
     }
   },
+
+  updateUser: async ( req: FastifyRequest<{ Params: { id: string }, Body: IUser }>, res: FastifyReply ) => {
+    try {
+      const updateUser = await userService.updateUser(req.body, req.params.id);
+      return res.send(updateUser).status(200);
+    } catch (error) {
+      res.send({ error: "Error updating user" });
+    }
+  },
   
 };
