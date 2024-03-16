@@ -6,3 +6,11 @@ export interface InputProps {
   placeholder: string;
   clt?: string;
 }
+
+export interface IClient {
+  nome: string;
+  email: string;
+  cpf: string;
+  telefone: string;
+  status: string;
+}

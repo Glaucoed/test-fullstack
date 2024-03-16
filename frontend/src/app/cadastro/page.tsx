@@ -1,3 +1,4 @@
+import Form from "@/components/Form";
 import { FiUser } from "react-icons/fi";
 
 export default function Cadastro() {
@@ -14,7 +15,8 @@ export default function Cadastro() {
         <h2 className="text-2xl font-semibold">Novo usuário</h2>
         <p className="text-lg text-gray-400">
           Informe os campos a seguir para criar novo usuário:
-        </p>       
+        </p>
+        <Form />        
       </section>
     </main>
   );
