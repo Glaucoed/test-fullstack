@@ -1,4 +1,4 @@
-describe.skip('Pagina Inicial', () => {
+describe('Pagina Inicial', () => {
   
   beforeEach(() => {
     cy.viewport(1920, 1080);
@@ -27,6 +27,32 @@ describe.skip('Pagina Inicial', () => {
   it('Verifica se ao clicar no botão de "Novo Cliente" é redirecionado para a página de cadastro de cliente', () => {
     cy.get('a').contains('Novo cliente').click()
     cy.url().should('include', '/cadastro')
+  })
+
+  describe('Pagina de Cadastro', () => {
+  
+    beforeEach(() => {
+      cy.viewport(1920, 1080);
+      cy.visit('http://localhost:3000/cadastro');
+    });
+  
+    it('Verifica se contém o Titulo de Novo usuário', () => {
+      cy.get('h2').contains('Novo usuário')
+    })
+  
+    it('Verifica se há o botão de "Criar"', () => {
+      cy.get('button').contains('Criar')
+    })
+  
+    it('Verifica se há o botão de "Voltar"', () => {
+      cy.get('a').contains('Voltar')
+    })
+  
+    it('Verifica se contém 4 inputs e 1 select', () => {
+      cy.get('input').should('have.length', 4)
+      cy.get('select').should('have.length', 1)
+    })
+  
   })
 
 })
