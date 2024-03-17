@@ -1,5 +1,6 @@
 "use client"
 import { IClient } from '@/interfaces';
+import { api } from '@/services/api';
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import React from 'react'
@@ -7,10 +8,8 @@ import React from 'react'
 export default function ListaDeClients() {
 
   async function fetchTodosClientes() {
-    const response = await fetch(`http://localhost:3001/users`);
-    const data = await response.json();
-
-    return data as IClient[];
+    const response = await api.get("http://localhost:3001/users");
+    return response.data as IClient[];
   }
 
   const { data: clients } = useQuery({
@@ -26,12 +25,12 @@ export default function ListaDeClients() {
               className="flex justify-between items-center border-2 border-zinc-200 p-6"
             >
               <div className="min-w-[37.5rem]">
-                <h3 className="text-xl font-semibold">{client.nome}</h3>
+                <h3 className="text-xl font-semibold">{client.name}</h3>
                 <p className="text-lg">{client.email}</p>
               </div>
               <div>
                 <p className="text-xl font-semibold">{client.cpf}</p>
-                <p className="text-lg">{client.telefone}</p>
+                <p className="text-lg">{client.phone}</p>
               </div>
               <div className="flex items-center gap-2 max-w-52 min-w-52">
                 <span>

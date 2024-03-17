@@ -16,7 +16,7 @@ export const userController = {
   createUser: async (req: FastifyRequest<{ Body: IUser }>, res: FastifyReply) => {
     try {
       const createUser = await userService.createUser(req.body);
-      return res.send(createUser).status(201);
+      return res.status(201).send(createUser);
     } catch (error) {
       res.send({ error: "Error creating user" });
     }

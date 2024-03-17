@@ -2,14 +2,11 @@
 
 import { FiUser } from "react-icons/fi";
 import Link from "next/link";
-import { useQuery } from "@tanstack/react-query";
+
 import ListaDeClients from "@/components/ListaDeClients";
 
 
 export default function Home() {
-
-
-
 
   return (
     <main className="px-52 pt-32">
