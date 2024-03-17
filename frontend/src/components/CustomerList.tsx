@@ -5,15 +5,16 @@ import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import React from "react";
 
-export default function ListaDeClients() {
-  async function fetchTodosClientes() {
+export default function CustomerList() {
+
+  async function fetchAllClients() {
     const response = await api.get("http://localhost:3001/users");
     return response.data as IClientList[];
   }
 
   const { data: clients } = useQuery({
     queryKey: ["clients"],
-    queryFn: fetchTodosClientes,
+    queryFn: fetchAllClients,
   });
 
   return (

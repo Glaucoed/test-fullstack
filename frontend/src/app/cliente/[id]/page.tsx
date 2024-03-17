@@ -1,7 +1,6 @@
 "use client"
 
 import Form from '@/components/Form'
-import React, { useEffect } from 'react'
 import { FiUser } from 'react-icons/fi'
 import { useParams } from "next/navigation"
 import { useQuery } from '@tanstack/react-query'
@@ -12,17 +11,14 @@ export default function UpdateCliente() {
   const { id } = useParams();
 
   async function fetchClientFindById() {
-
     const response = await api.get(`/users/${id}`);
     return response.data;
-    
   }
 
-  const { data: cliente } = useQuery({
+  const { data: client } = useQuery({
     queryKey: ['uniqueClient', id],
     queryFn: fetchClientFindById,    
   })
-
   
   return (
     <main className="px-52 pt-32">
@@ -33,11 +29,11 @@ export default function UpdateCliente() {
         </h1>
       </div>
       <section className="py-9 flex flex-col gap-3 text-gray-500">
-        <h2 className="text-2xl font-semibold">{cliente ? "Atualizar usuário" : "Novo usuário"}</h2>
+        <h2 className="text-2xl font-semibold">{client ? "Atualizar usuário" : "Novo usuário"}</h2>
         <p className="text-lg text-gray-400">
           Informe os campos a seguir para criar novo usuário:
         </p>
-        {cliente && <Form cliente={cliente} />} 
+        {client && <Form client={client} />} 
       </section>
     </main>
   )

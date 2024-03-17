@@ -3,7 +3,7 @@
 import { FiUser } from "react-icons/fi";
 import Link from "next/link";
 
-import ListaDeClients from "@/components/ListaDeClients";
+import CustomerList from "@/components/CustomerList";
 
 
 export default function Home() {
@@ -33,7 +33,7 @@ export default function Home() {
             </Link>
           </div>
         </div>
-        <ListaDeClients />
+        <CustomerList />
       </section>
     </main>
   );

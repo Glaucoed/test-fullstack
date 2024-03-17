@@ -7,28 +7,35 @@ export const userService = {
     try {
       const getAllUsers = await userModel.getAllUsers();
       return getAllUsers;
-    } catch (error) {}
+    } catch (error) {
+      return error;
+    }
   },
-  
+
   createUser: async (body: IUser) => {
     try {
       const createUser = await userModel.createUser(body);
       return createUser;
-    } catch (error) {}
+    } catch (error) {
+      return error;
+    }
   },
 
   updateUser: async (body: IUser, id: string) => {
     try {
       const updateUser = await userModel.updateUser(body, id);
       return updateUser;
-    } catch (error) {}
+    } catch (error) {
+      return error;
+    }
   },
 
   getUserById: async (id: string) => {
     try {
       const getUserById = await userModel.getUserById(id);
       return getUserById;
-    } catch (error) {}
-  }
-  
+    } catch (error) {
+      return error;
+    }
+  },
 };

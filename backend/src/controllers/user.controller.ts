@@ -9,7 +9,7 @@ export const userController = {
       const getAllUsers = await userService.getAllUsers();
       return res.status(200).send(getAllUsers);
     } catch (error) {
-      res.send({ error: "Error getting all users" });
+      res.status(500).send({ error: "Error getting all users" });
     }
   },
   
@@ -18,7 +18,7 @@ export const userController = {
       const createUser = await userService.createUser(req.body);
       return res.status(201).send(createUser);
     } catch (error) {
-      res.send({ error: "Error creating user" });
+      res.status(500).send({ error: "Error creating user" });
     }
   },
 
@@ -27,7 +27,7 @@ export const userController = {
       const updateUser = await userService.updateUser(req.body, req.params.id);
       return res.status(200).send(updateUser);
     } catch (error) {
-      res.send({ error: "Error updating user" });
+      res.status(500).send({ error: "Error updating user" });
     }
   },
 
@@ -36,7 +36,7 @@ export const userController = {
       const getUserById = await userService.getUserById(req.params.id);
       return res.status(200).send(getUserById);
     } catch (error) {
-      res.send({ error: "Error getting user by id" });
+      res.status(500).send({ error: "Error getting user by id" });
     }
   }
   
