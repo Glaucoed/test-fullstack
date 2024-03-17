@@ -18,6 +18,22 @@ const clients = [
     telefone: "(11) 99999-9999",
     status: "Inativo",
   },
+  {
+    id: 3,
+    nome: "João da Silva",
+    email: "teste@teste.com.br",
+    cpf: "123.456.789-00",
+    telefone: "(11) 99999-9999",
+    status: "Aguardando ativação",
+  },
+  {
+    id: 4,
+    nome: "João da Silva",
+    email: "teste@teste.com.br",
+    cpf: "123.456.789-00",
+    telefone: "(11) 99999-9999",
+    status: "Desativado",
+  },
 ];
 
 export default function Home() {
