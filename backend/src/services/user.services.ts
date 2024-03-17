@@ -23,5 +23,12 @@ export const userService = {
       return updateUser;
     } catch (error) {}
   },
+
+  getUserById: async (id: string) => {
+    try {
+      const getUserById = await userModel.getUserById(id);
+      return getUserById;
+    } catch (error) {}
+  }
   
 };

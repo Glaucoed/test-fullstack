@@ -13,9 +13,10 @@ import Input from "@/components/Input";
 import Link from "next/link";
 import { IClient } from "@/interfaces";
 import { api } from "@/services/api";
+import { useEffect } from "react";
 
-export default function Form({ client }: { client?: IClient }) {
-  const router = useRouter();
+
+export default function Form({ cliente }: { cliente?: IClient }) {
 
   const SignInSchema = yup.object().shape({
     name: yup.string().required("Nome é obrigatório"),
@@ -24,6 +25,7 @@ export default function Form({ client }: { client?: IClient }) {
     phone: yup.string().required("Telefone é obrigatório"),
     status: yup.string().required("Status é obrigatório"),
   });
+
 
   const methods = useForm({
     resolver: yupResolver(SignInSchema),
@@ -34,9 +36,26 @@ export default function Form({ client }: { client?: IClient }) {
     formState: { errors },
   } = methods;
 
-  async function onSubmitClient(data: SubmitHandler<IClient>) {
+
+  const router = useRouter();
+
+  async function onUpdateClient(data: SubmitHandler<IClient>) {
     try {
-      
+      await api
+        .put(`http://localhost:3001/users/${cliente?.id}`, data)
+        .then((response) => {
+          if (response.status === 200) {
+            reset();
+            router.push("/");
+          }
+        });
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async function onRegisterClient(data: SubmitHandler<IClient>) {
+    try {
       await api.post("http://localhost:3001/users", data).then((response) => {
         if (response.status === 201) {
           reset();
@@ -46,6 +65,10 @@ export default function Form({ client }: { client?: IClient }) {
     } catch (error) {
       console.error(error);
     }
+  }
+
+  async function onSubmitClient(data: SubmitHandler<IClient>) {
+    cliente ? onUpdateClient(data) : onRegisterClient(data);
   }
 
   return (
@@ -58,31 +81,31 @@ export default function Form({ client }: { client?: IClient }) {
           error={errors.name}
           name="name"
           placeholder="Nome"
-          clt={client?.name}
+          clt={cliente?.name}
         />
         <Input
           error={errors.email}
           name="email"
           placeholder="Email"
-          clt={client?.email}
+          clt={cliente?.email}
         />
         <Input
           error={errors.cpf}
           name="cpf"
           placeholder="CPF"
-          clt={client?.cpf}
+          clt={cliente?.cpf}
         />
         <Input
           error={errors.phone}
           name="phone"
           placeholder="Telefone"
-          clt={client?.phone}
+          clt={cliente?.phone}
         />
         <Input
           error={errors.status}
           name="status"
           placeholder="Status"
-          clt={client?.status}
+          clt={cliente?.status}
         />
 
         <div className="flex gap-4 pt-14">
@@ -90,7 +113,7 @@ export default function Form({ client }: { client?: IClient }) {
             className="bg-uol-button hover:bg-transparent border-2 border-uol-button hover:text-uol-button px-12 py-3 text-xl rounded-md text-white"
             type="submit"
           >
-            Criar
+            {cliente ? "Atualizar" : "Criar"}
           </button>
           <Link
             className="bg-transparent hover:bg-uol-button hover:text-white border-2 border-uol-button px-11 py-3 text-xl rounded-md text-uol-button"

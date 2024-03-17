@@ -22,5 +22,12 @@ export const userModel = {
     });
     return updateUser;
   },
+
+  getUserById: async (id: string) => {
+    const getUserById = await prisma.user.findUnique({
+      where: { id },
+    });
+    return getUserById;
+  }
   
 };
