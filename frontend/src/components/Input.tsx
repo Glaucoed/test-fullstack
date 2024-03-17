@@ -1,8 +1,7 @@
 import { InputProps } from "@/interfaces";
 import { useFormContext } from "react-hook-form";
 
-
-export default function Input({ error, name, placeholder, clt }: InputProps) {
+export default function Input({ error, name, placeholder, clt, onChange }: InputProps) {
   const methods = useFormContext();
   return (
     <div>
@@ -15,6 +14,7 @@ export default function Input({ error, name, placeholder, clt }: InputProps) {
         placeholder={placeholder}
         {...methods.register(`${name}`)}
         defaultValue={clt ? clt : methods.watch(name)}
+        onChange={onChange}
       />
         {error && <p className="text-red-500 text-sm pl-2 pt-2">{error.message}</p>}
       </div>

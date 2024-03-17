@@ -1,28 +1,23 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import {
-  FieldValues,
-  FormProvider,
-  SubmitHandler,
-  useForm,
-} from "react-hook-form";
+import { FieldValues, FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import Input from "@/components/Input";
 import Link from "next/link";
-import { IClient } from "@/interfaces";
+import { IClient, IClientList } from "@/interfaces";
 import { api } from "@/services/api";
-import { useEffect } from "react";
+import { maskCPF, maskPhone } from "../utils/maskInput"
 
 
-export default function Form({ cliente }: { cliente?: IClient }) {
+export default function Form({ cliente }: { cliente?: IClientList }) {
 
   const SignInSchema = yup.object().shape({
     name: yup.string().required("Nome é obrigatório"),
     email: yup.string().email("Email inválido").required("Email é obrigatório"),
-    cpf: yup.string().required("CPF é obrigatório"),
-    phone: yup.string().required("Telefone é obrigatório"),
+    cpf: yup.string().required("CPF é obrigatório").matches(/^\d{3}.?\d{3}.?\d{3}\-?\d{2}$/, "CPF inválido"),
+    phone: yup.string().required("Telefone é obrigatório").matches(/^\(\d{2}\) \d{4}-\d{4}$/, 'Digite um número de telefone válido'),
     status: yup.string().required("Status é obrigatório"),
   });
 
@@ -33,13 +28,14 @@ export default function Form({ cliente }: { cliente?: IClient }) {
   const {
     handleSubmit,
     reset,
+    setValue,
     formState: { errors },
   } = methods;
 
 
   const router = useRouter();
 
-  async function onUpdateClient(data: SubmitHandler<IClient>) {
+  async function onUpdateClient(data: SubmitHandler<IClientList>) {
     try {
       await api
         .put(`http://localhost:3001/users/${cliente?.id}`, data)
@@ -71,6 +67,11 @@ export default function Form({ cliente }: { cliente?: IClient }) {
     cliente ? onUpdateClient(data) : onRegisterClient(data);
   }
 
+  function handleSetMask(value: string, name: keyof IClient) {
+    console.log(value, name);
+    setValue(name, value);
+  }
+
   return (
     <FormProvider {...methods}>
       <form
@@ -81,7 +82,7 @@ export default function Form({ cliente }: { cliente?: IClient }) {
           error={errors.name}
           name="name"
           placeholder="Nome"
-          clt={cliente?.name}
+          clt={cliente?.name}          
         />
         <Input
           error={errors.email}
@@ -94,12 +95,14 @@ export default function Form({ cliente }: { cliente?: IClient }) {
           name="cpf"
           placeholder="CPF"
           clt={cliente?.cpf}
+          onChange={(e) => handleSetMask(maskCPF(e.target.value), "cpf")}
         />
         <Input
           error={errors.phone}
           name="phone"
           placeholder="Telefone"
           clt={cliente?.phone}
+          onChange={(e) => handleSetMask(maskPhone(e.target.value), "phone")}
         />
         <Input
           error={errors.status}

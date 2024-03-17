@@ -1,7 +1,6 @@
 import { FieldError } from "react-hook-form";
 
 export interface IClient {
-  id?: number;
   name: string;
   email: string;
   cpf: string;
@@ -10,9 +9,14 @@ export interface IClient {
   
 }
 
+export interface IClientList extends IClient {
+  id: number;
+}
+
 export interface InputProps {
   error?: FieldError;
   name: string;
   placeholder: string;
   clt?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }

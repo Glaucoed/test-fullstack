@@ -1,5 +1,5 @@
 "use client";
-import { IClient } from "@/interfaces";
+import { IClient, IClientList } from "@/interfaces";
 import { api } from "@/services/api";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
@@ -8,7 +8,7 @@ import React from "react";
 export default function ListaDeClients() {
   async function fetchTodosClientes() {
     const response = await api.get("http://localhost:3001/users");
-    return response.data as IClient[];
+    return response.data as IClientList[];
   }
 
   const { data: clients } = useQuery({
