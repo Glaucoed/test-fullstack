@@ -1,6 +1,7 @@
 import { FieldError } from "react-hook-form";
 
 export interface IClient {
+  id?: number;
   nome: string;
   email: string;
   cpf: string;
