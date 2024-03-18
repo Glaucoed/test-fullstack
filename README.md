@@ -1,5 +1,5 @@
 # Instruções de Como Rodar a Aplicação
-1. Instale as dependências:
+1. Instalar as dependências:
 
 ```bash
   npm install
@@ -12,7 +12,7 @@
 ```
 
 ## Testes
-Certifique-se de que o servidor esteja iniciado.
+Verifique se os servidores estão iniciados.
 
 1. Execute os testes:
 
