@@ -1,3 +1,27 @@
+# Instruções de Como Rodar a Aplicação
+1. Instale as dependências:
+
+```bash
+  npm install
+```
+
+2. Inicie o servidor:
+
+```bash
+  npm run dev
+```
+
+## Testes
+Certifique-se de que o servidor esteja iniciado.
+
+1. Execute os testes:
+
+```bash
+npm test
+```
+
+---
+
 # Teste Fullstack: Aplicativo de Gerenciamento de Clientes
 
 ## Descrição:
